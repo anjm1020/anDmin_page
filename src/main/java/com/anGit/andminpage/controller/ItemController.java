@@ -1,13 +1,13 @@
 package com.anGit.andminpage.controller;
 
 import com.anGit.andminpage.domain.Item;
+import com.anGit.andminpage.dto.ItemDto;
 import com.anGit.andminpage.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -32,6 +32,36 @@ public class ItemController {
         Optional<Item> item = itemRepository.findById(itemId);
         model.addAttribute("item", item.get());
         return "item/item";
+    }
+
+    @GetMapping("/add")
+    public String addItem(Model model) {
+        model.addAttribute("mode", "add");
+        return "item/editForm";
+    }
+
+    @PostMapping("/add")
+    public String saveItem(@ModelAttribute ItemDto.EditForm editForm,
+                           RedirectAttributes redirectAttributes,
+                           Model model) {
+        Item item = new Item();
+        item.setName(editForm.getName());
+        item.setPrice(editForm.getPrice());
+        item.setQuantity(editForm.getQuantity());
+        Item saved = itemRepository.save(item);
+
+        redirectAttributes.addAttribute("itemId", saved.getId());
+        model.addAttribute("item", saved);
+
+        return "redirect:/items/{itemId}";
+    }
+
+    @GetMapping("/edit/{itemId}")
+    public String editItem(@PathVariable long itemId, Model model) {
+        Optional<Item> item = itemRepository.findById(itemId);
+        model.addAttribute("item", item.get());
+        model.addAttribute("mode", "edit");
+        return "item/editForm";
     }
 
     @PostConstruct

@@ -31,6 +31,11 @@
         .form-control {
             margin-bottom: 0.5rem;
         }
+        .btn-group-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -38,7 +43,7 @@
     <h2 th:if="${mode}=='add'" th:text="'ADD ITEM'">item-edit</h2>
     <h2 th:if="${mode}=='edit'" th:text="|EDIT ${item.name}|">item-edit</h2>
 
-    <form th:action>
+    <form th:action th:method="'post'">
         <div class="form-group">
             <input type="text" class="form-control" name="id"
                    th:if="${mode}=='edit'"
@@ -53,19 +58,18 @@
                    th:value="${mode}=='edit' ? ${item.quantity}:''"
                    placeholder="Quantity"/>
         </div>
+        <div class="btn-group-wrapper">
+            <button type="button" class="btn btn-primary"
+                    th:onclick="|location.href='@{/items}'|"
+                    onclick="location.href='itemlist.html'">
+                BACK
+            </button>
+            <button type="submit" class="btn btn-primary"
+                    th:text="${mode}=='add' ? 'ADD' : 'EDIT'">
+                OK
+            </button>
+        </div>
     </form>
-
-    <div class="btn-group-wrapper">
-        <button type="button" class="btn btn-primary"
-                th:onclick="|location.href='@{/items}'|"
-                onclick="location.href='itemlist.html'">
-            BACK
-        </button>
-        <button type="button" class="btn btn-primary"
-                th:text="${mode}=='add' ? 'ADD' : 'EDIT'">
-            OK
-        </button>
-    </div>
 </div>
 </body>
 </html>
