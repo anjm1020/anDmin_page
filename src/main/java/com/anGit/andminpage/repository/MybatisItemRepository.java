@@ -12,11 +12,9 @@ import java.util.Optional;
 public class MybatisItemRepository implements ItemRepository {
 
     private final ItemMapper itemMapper;
-//    private static Long sequence = 0L;
 
     @Override
     public Item save(Item item) {
-//        item.setId(++sequence);
         int savedId = itemMapper.save(item);
         return item;
     }
