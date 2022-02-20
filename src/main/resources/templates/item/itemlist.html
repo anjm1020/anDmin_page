@@ -40,10 +40,20 @@
         </thead>
         <tbody>
         <tr th:each="item : ${items}">
-            <td th:text="${item.getId()}"></td>
-            <td th:text="${item.getName()}"></td>
-            <td th:text="${item.getPrice()}"></td>
-            <td th:text="${item.getQuantity()}"></td>
+            <td>
+                <a th:text="${item.id}"
+                   href="item.html"
+                   th:href="@{/items/{itemId}(itemId=${item.id})}">
+                </a>
+            </td>
+            <td>
+                <a th:text="${item.name}"
+                   href="item.html"
+                   th:href="@{/items/{itemId}(itemId=${item.id})}">
+                </a>
+            </td>
+            <td th:text="${item.price}"></td>
+            <td th:text="${item.quantity}"></td>
         </tr>
         </tbody>
     </table>
