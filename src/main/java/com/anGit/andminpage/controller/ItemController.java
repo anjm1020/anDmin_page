@@ -64,6 +64,21 @@ public class ItemController {
         return "item/editForm";
     }
 
+    @PostMapping("/edit/{itemId}")
+    public String editSaveItem(@PathVariable long itemId,
+                               ItemDto.EditForm editForm,
+                               RedirectAttributes redirectAttributes,
+                               Model model) {
+        Item item = itemRepository.findById(itemId).get();
+        item.setName(editForm.getName());
+        item.setPrice(editForm.getPrice());
+        item.setQuantity(editForm.getQuantity());
+
+        model.addAttribute("item", item);
+        redirectAttributes.addAttribute("itemId", item.getId());
+        return "redirect:/items/{itemId}";
+    }
+
     @PostConstruct
     public void init() {
 
