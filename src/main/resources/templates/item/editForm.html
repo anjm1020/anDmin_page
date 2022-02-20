@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css">
+
+    <title th:text="|item:${mode}|">editForm</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .form-control {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:if="${mode}=='add'" th:text="'ADD ITEM'">item-edit</h2>
+    <h2 th:if="${mode}=='edit'" th:text="|EDIT ${item.name}|">item-edit</h2>
+
+    <form th:action>
+        <div class="form-group">
+            <input type="text" class="form-control" name="id"
+                   th:if="${mode}=='edit'"
+                   th:value="${item.id}" disabled/>
+            <input type="text" class="form-control" name="name"
+                   th:value="${mode}=='edit' ? ${item.name}:''"
+                   placeholder="Name" />
+            <input type="number" class="form-control" name="price"
+                   th:value="${mode}=='edit' ? ${item.price}:''"
+                   placeholder="Price"/>
+            <input type="number" class="form-control" name="quantity"
+                   th:value="${mode}=='edit' ? ${item.quantity}:''"
+                   placeholder="Quantity"/>
+        </div>
+    </form>
+
+    <div class="btn-group-wrapper">
+        <button type="button" class="btn btn-primary"
+                th:onclick="|location.href='@{/items}'|"
+                onclick="location.href='itemlist.html'">
+            BACK
+        </button>
+        <button type="button" class="btn btn-primary"
+                th:text="${mode}=='add' ? 'ADD' : 'EDIT'">
+            OK
+        </button>
+    </div>
+</div>
+</body>
+</html>
