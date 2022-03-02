@@ -19,6 +19,10 @@ public interface ItemMapper {
             "WHERE id=${id}")
     int update(Item item);
 
+    @Delete("DELETE FROM item " +
+            "WHERE id=#{id}")
+    boolean delete(Long id);
+
     @Select("SELECT * FROM item")
     List<Item> findAll();
 

@@ -1,8 +1,6 @@
 package com.anGit.andminpage.repository;
 
 import com.anGit.andminpage.domain.Item;
-import com.anGit.andminpage.dto.ItemDto;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,15 @@ public class MemoryItemRepository implements ItemRepository{
         updated.setQuantity(item.getQuantity());
 
         return updated;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (!store.containsKey(id)) {
+            return false;
+        }
+        store.remove(id);
+        return true;
     }
 
     @Override

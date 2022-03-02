@@ -25,6 +25,11 @@ public class MybatisItemRepository implements ItemRepository {
     }
 
     @Override
+    public boolean delete(Long id) {
+        return itemMapper.delete(id);
+    }
+
+    @Override
     public Optional<Item> findById(Long id) {
         return Optional.ofNullable(itemMapper.findById(id));
     }
