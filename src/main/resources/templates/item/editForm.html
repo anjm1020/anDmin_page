@@ -1,44 +1,21 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css"
-          th:href="@{/css/bootstrap.min.css}"
-          href="../css/bootstrap.min.css">
+<html th:replace="layout/itempage :: layout(~{::title},~{::style},~{::.container})"
+      xmlns:th="http://www.thymeleaf.org">
+<title th:text="|item:${mode}|">editForm</title>
+<style>
+    .form-group {
+        width: 100%;
+    }
 
-    <title th:text="|item:${mode}|">editForm</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 100vh;
-        }
+    .form-control {
+        margin-bottom: 0.5rem;
+    }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .form-group {
-            width: 100%;
-        }
-
-        .form-control {
-            margin-bottom: 0.5rem;
-        }
-        .btn-group-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
-</head>
-<body>
+    .btn-group-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 <div class="container">
     <h2 th:if="${mode}=='add'" th:text="'ADD ITEM'">item-edit</h2>
     <h2 th:if="${mode}=='edit'" th:text="|EDIT ${item.name}|">item-edit</h2>
@@ -50,7 +27,7 @@
                    th:value="${item.id}" disabled/>
             <input type="text" class="form-control" name="name"
                    th:value="${mode}=='edit' ? ${item.name}:''"
-                   placeholder="Name" />
+                   placeholder="Name"/>
             <input type="number" class="form-control" name="price"
                    th:value="${mode}=='edit' ? ${item.price}:''"
                    placeholder="Price"/>
@@ -71,5 +48,4 @@
         </div>
     </form>
 </div>
-</body>
 </html>

@@ -1,0 +1,6 @@
+<html th:fragment="layout(title,styles,content)" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/head :: common_header(${title},${styles})" />
+<body>
+<th:block th:replace="${content}"/>
+</body>
+</html>
