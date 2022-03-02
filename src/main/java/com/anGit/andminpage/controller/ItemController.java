@@ -44,10 +44,7 @@ public class ItemController {
     public String saveItem(@ModelAttribute ItemDto.EditForm editForm,
                            RedirectAttributes redirectAttributes,
                            Model model) {
-        Item item = new Item();
-        item.setName(editForm.getName());
-        item.setPrice(editForm.getPrice());
-        item.setQuantity(editForm.getQuantity());
+        Item item = new Item(editForm);
         Item saved = itemRepository.save(item);
 
         redirectAttributes.addAttribute("itemId", saved.getId());

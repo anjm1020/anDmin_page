@@ -1,5 +1,6 @@
 package com.anGit.andminpage.domain;
 
+import com.anGit.andminpage.dto.ItemDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +19,11 @@ public class Item {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public Item(ItemDto.EditForm editForm) {
+        name = editForm.getName();
+        price = editForm.getPrice();
+        quantity = editForm.getQuantity();
     }
 }
