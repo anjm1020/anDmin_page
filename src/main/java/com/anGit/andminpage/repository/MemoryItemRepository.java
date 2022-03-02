@@ -1,6 +1,7 @@
 package com.anGit.andminpage.repository;
 
 import com.anGit.andminpage.domain.Item;
+import com.anGit.andminpage.dto.ItemDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,6 +22,16 @@ public class MemoryItemRepository implements ItemRepository{
         store.put(item.getId(), item);
         sequence.set(sequence.get() + 1);
         return item;
+    }
+
+    @Override
+    public Item update(Item item) {
+        Item updated = store.get(item.getId());
+        updated.setName(item.getName());
+        updated.setPrice(item.getPrice());
+        updated.setQuantity(item.getQuantity());
+
+        return updated;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.anGit.andminpage.repository;
 import com.anGit.andminpage.domain.Item;
 import com.anGit.andminpage.mapper.ItemMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +14,13 @@ public class MybatisItemRepository implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        int savedId = itemMapper.save(item);
+        itemMapper.save(item);
+        return item;
+    }
+
+    @Override
+    public Item update(Item item) {
+        itemMapper.update(item);
         return item;
     }
 

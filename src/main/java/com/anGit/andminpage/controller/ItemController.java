@@ -4,6 +4,7 @@ import com.anGit.andminpage.domain.Item;
 import com.anGit.andminpage.dto.ItemDto;
 import com.anGit.andminpage.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/items")
+@Slf4j
 public class ItemController {
 
     private final ItemRepository itemRepository;
@@ -64,14 +66,15 @@ public class ItemController {
     @PostMapping("/edit/{itemId}")
     public String editSaveItem(@PathVariable long itemId,
                                ItemDto.EditForm editForm,
-                               RedirectAttributes redirectAttributes,
-                               Model model) {
-        Item item = itemRepository.findById(itemId).get();
-        item.setName(editForm.getName());
-        item.setPrice(editForm.getPrice());
-        item.setQuantity(editForm.getQuantity());
+                               RedirectAttributes redirectAttributes
+                               ) {
 
-        model.addAttribute("item", item);
+        log.info("editForm = {}", editForm);
+
+        Item oldItem = new Item(editForm);
+        oldItem.setId(itemId);
+        Item item = itemRepository.update(oldItem);
+
         redirectAttributes.addAttribute("itemId", item.getId());
         return "redirect:/items/{itemId}";
     }

@@ -8,9 +8,16 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
 
-    @Insert("INSERT INTO item(name,price,quantity) values(#{name},#{price},#{quantity})")
+    @Insert("INSERT INTO " +
+            "item(name,price,quantity) " +
+            "values(#{name},#{price},#{quantity})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Item item);
+
+    @Update("UPDATE item " +
+            "SET name=#{name}, price=${price}, quantity=#{quantity} " +
+            "WHERE id=${id}")
+    int update(Item item);
 
     @Select("SELECT * FROM item")
     List<Item> findAll();
